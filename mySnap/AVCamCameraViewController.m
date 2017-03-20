@@ -391,9 +391,9 @@ typedef NS_ENUM( NSInteger, AVCamLivePhotoMode ) {
 	} );
 }
 
-- (IBAction)toggleCaptureMode:(UISegmentedControl *)captureModeControl
+- (IBAction)toggleCaptureMode: (id) sender
 {
-	if ( captureModeControl.selectedSegmentIndex == AVCamCaptureModePhoto ) {
+	if ( _captureModeControl.selectedSegmentIndex == AVCamCaptureModePhoto ) {
 		self.recordButton.enabled = NO;
 		
 		dispatch_async( self.sessionQueue, ^{
@@ -419,7 +419,7 @@ typedef NS_ENUM( NSInteger, AVCamLivePhotoMode ) {
 			}
 		} );
 	}
-	else if ( captureModeControl.selectedSegmentIndex == AVCamCaptureModeMovie ) {
+	else if ( _captureModeControl.selectedSegmentIndex == AVCamCaptureModeMovie ) {
 		self.livePhotoModeButton.hidden = YES;
 		
 		dispatch_async( self.sessionQueue, ^{
@@ -448,7 +448,7 @@ typedef NS_ENUM( NSInteger, AVCamLivePhotoMode ) {
 
 #pragma mark Device Configuration
 
-- (IBAction)changeCamera:(id)sender
+- (void)changeCamera
 {
 	self.cameraButton.enabled = NO;
 	self.recordButton.enabled = NO;
@@ -679,7 +679,7 @@ typedef NS_ENUM( NSInteger, AVCamLivePhotoMode ) {
 
 #pragma mark Recording Movies
 
-- (IBAction)toggleMovieRecording:(id)sender
+- (void)toggleMovieRecording
 {
 	/*
 		Disable the Camera button until recording finishes, and disable
