@@ -14,6 +14,7 @@ class CameraVC: AVCamCameraViewController {
     @IBOutlet weak var previewView: AVCamPreviewView!
     override func viewDidLoad() {
         
+        
         self._previewView = previewView
         
         super.viewDidLoad()

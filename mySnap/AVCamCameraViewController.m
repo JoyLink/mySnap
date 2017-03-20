@@ -96,82 +96,113 @@ typedef NS_ENUM( NSInteger, AVCamLivePhotoMode ) {
 
 - (void)viewDidLoad
 {
-	[super viewDidLoad];
-	
-	// Disable UI. The UI is enabled if and only if the session starts running.
-	self.cameraButton.enabled = NO;
-	self.recordButton.enabled = NO;
-	self.photoButton.enabled = NO;
-	self.livePhotoModeButton.enabled = NO;
-	self.captureModeControl.enabled = NO;
-	
-	// Create the AVCaptureSession.
-	self.session = [[AVCaptureSession alloc] init];
-	
-	// Create a device discovery session.
-	NSArray<AVCaptureDeviceType> *deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeBuiltInDuoCamera];
-	self.videoDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionUnspecified];
-	
-	// Set up the preview view.
-	self._previewView.session = self.session;
-	
-	// Communicate with the session and other session objects on this queue.
-	self.sessionQueue = dispatch_queue_create( "session queue", DISPATCH_QUEUE_SERIAL );
-	
-	self.setupResult = AVCamSetupResultSuccess;
-	
-	/*
-		Check video authorization status. Video access is required and audio
-		access is optional. If audio access is denied, audio is not recorded
-		during movie recording.
-	*/
-	switch ( [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] )
-	{
-		case AVAuthorizationStatusAuthorized:
-		{
-			// The user has previously granted access to the camera.
-			break;
-		}
-		case AVAuthorizationStatusNotDetermined:
-		{
-			/*
-				The user has not yet been presented with the option to grant
-				video access. We suspend the session queue to delay session
-				setup until the access request has completed.
-				
-				Note that audio access will be implicitly requested when we
-				create an AVCaptureDeviceInput for audio during session setup.
-			*/
-			dispatch_suspend( self.sessionQueue );
-			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^( BOOL granted ) {
-				if ( ! granted ) {
-					self.setupResult = AVCamSetupResultCameraNotAuthorized;
-				}
-				dispatch_resume( self.sessionQueue );
-			}];
-			break;
-		}
-		default:
-		{
-			// The user has previously denied access.
-			self.setupResult = AVCamSetupResultCameraNotAuthorized;
-			break;
-		}
-	}
-	
-	/*
-		Setup the capture session.
-		In general it is not safe to mutate an AVCaptureSession or any of its
-		inputs, outputs, or connections from multiple threads at the same time.
-		
-		Why not do all of this on the main queue?
-		Because -[AVCaptureSession startRunning] is a blocking call which can
-		take a long time. We dispatch session setup to the sessionQueue so
-		that the main queue isn't blocked, which keeps the UI responsive.
-	*/
-	dispatch_async( self.sessionQueue, ^{
-		[self configureSession];
-	} );
+    [super viewDidLoad];
+    
+    // Disable UI. The UI is enabled if and only if the session starts running.
+    self.cameraButton.enabled = NO;
+    self.recordButton.enabled = NO;
+    self.photoButton.enabled = NO;
+    self.livePhotoModeButton.enabled = NO;
+    self.captureModeControl.enabled = NO;
+    
+    // Create the AVCaptureSession.
+    self.session = [[AVCaptureSession alloc] init];
+    
+    // Create a device discovery session.
+    NSArray<AVCaptureDeviceType> *deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeBuiltInDuoCamera];
+    self.videoDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionUnspecified];
+    
+    // Set up the preview view.
+    self._previewView.session = self.session;
+    
+    // Communicate with the session and other session objects on this queue.
+    self.sessionQueue = dispatch_queue_create( "session queue", DISPATCH_QUEUE_SERIAL );
+    
+    self.setupResult = AVCamSetupResultSuccess;
+    
+    /*
+     Check video authorization status. Video access is required and audio
+     access is optional. If audio access is denied, audio is not recorded
+     during movie recording.
+     */
+    switch ( [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo] )
+    {
+        case AVAuthorizationStatusAuthorized:
+        {
+            // The user has previously granted access to the camera.
+            break;
+        }
+        case AVAuthorizationStatusNotDetermined:
+        {
+            /*
+             The user has not yet been presented with the option to grant
+             video access. We suspend the session queue to delay session
+             setup until the access request has completed.
+             
+             Note that audio access will be implicitly requested when we
+             create an AVCaptureDeviceInput for audio during session setup.
+             */
+            dispatch_suspend( self.sessionQueue );
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^( BOOL granted ) {
+                if ( ! granted ) {
+                    self.setupResult = AVCamSetupResultCameraNotAuthorized;
+                }
+                dispatch_resume( self.sessionQueue );
+            }];
+            break;
+        }
+        default:
+        {
+            // The user has previously denied access.
+            self.setupResult = AVCamSetupResultCameraNotAuthorized;
+            break;
+        }
+            
+            
+    }
+    
+    /*
+     Setup the capture session.
+     In general it is not safe to mutate an AVCaptureSession or any of its
+     inputs, outputs, or connections from multiple threads at the same time.
+     
+     Why not do all of this on the main queue?
+     Because -[AVCaptureSession startRunning] is a blocking call which can
+     take a long time. We dispatch session setup to the sessionQueue so
+     that the main queue isn't blocked, which keeps the UI responsive.
+     */
+    dispatch_async( self.sessionQueue, ^{
+        [self configureSession];
+    } );
+    
+    
+    
+    
+    self.livePhotoModeButton.hidden = YES;
+    
+    dispatch_async( self.sessionQueue, ^{
+        AVCaptureMovieFileOutput *movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
+        
+        if ( [self.session canAddOutput:movieFileOutput] )
+        {
+            [self.session beginConfiguration];
+            [self.session addOutput:movieFileOutput];
+            self.session.sessionPreset = AVCaptureSessionPresetHigh;
+            AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+            if ( connection.isVideoStabilizationSupported ) {
+                connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+            }
+            [self.session commitConfiguration];
+            
+            self.movieFileOutput = movieFileOutput;
+            
+            dispatch_async( dispatch_get_main_queue(), ^{
+                self.recordButton.enabled = YES;
+            } );
+        }
+    } );
+
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -681,50 +712,52 @@ typedef NS_ENUM( NSInteger, AVCamLivePhotoMode ) {
 
 - (void)toggleMovieRecording
 {
-	/*
-		Disable the Camera button until recording finishes, and disable
-		the Record button until recording starts or finishes.
-		
-		See the AVCaptureFileOutputRecordingDelegate methods.
-	 */
-	self.cameraButton.enabled = NO;
-	self.recordButton.enabled = NO;
-	self.captureModeControl.enabled = NO;
-	
-	/*
-		Retrieve the video preview layer's video orientation on the main queue
-		before entering the session queue. We do this to ensure UI elements are
-		accessed on the main thread and session configuration is done on the session queue.
-	*/
-	AVCaptureVideoOrientation videoPreviewLayerVideoOrientation = self._previewView.videoPreviewLayer.connection.videoOrientation;
-	
-	dispatch_async( self.sessionQueue, ^{
-		if ( ! self.movieFileOutput.isRecording ) {
-			if ( [UIDevice currentDevice].isMultitaskingSupported ) {
-				/*
-					Setup background task.
-					This is needed because the -[captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:]
-					callback is not received until AVCam returns to the foreground unless you request background execution time.
-					This also ensures that there will be time to write the file to the photo library when AVCam is backgrounded.
-					To conclude this background execution, -[endBackgroundTask:] is called in
-					-[captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:] after the recorded file has been saved.
-				*/
-				self.backgroundRecordingID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
-			}
-			
-			// Update the orientation on the movie file output video connection before starting recording.
-			AVCaptureConnection *movieFileOutputConnection = [self.movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-			movieFileOutputConnection.videoOrientation = videoPreviewLayerVideoOrientation;
-			
-			// Start recording to a temporary file.
-			NSString *outputFileName = [NSUUID UUID].UUIDString;
-			NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
-			[self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
-		}
-		else {
-			[self.movieFileOutput stopRecording];
-		}
-	} );
+    /*
+     Disable the Camera button until recording finishes, and disable
+     the Record button until recording starts or finishes.
+     
+     See the AVCaptureFileOutputRecordingDelegate methods.
+     */
+    self.cameraButton.enabled = NO;
+    self.recordButton.enabled = NO;
+    self.captureModeControl.enabled = NO;
+    
+    /*
+     Retrieve the video preview layer's video orientation on the main queue
+     before entering the session queue. We do this to ensure UI elements are
+     accessed on the main thread and session configuration is done on the session queue.
+     */
+    AVCaptureVideoOrientation videoPreviewLayerVideoOrientation = __previewView.videoPreviewLayer.connection.videoOrientation;
+    
+    dispatch_async( self.sessionQueue, ^{
+        if ( ! self.movieFileOutput.isRecording ) {
+            if ( [UIDevice currentDevice].isMultitaskingSupported ) {
+                /*
+                 Setup background task.
+                 This is needed because the -[captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:]
+                 callback is not received until AVCam returns to the foreground unless you request background execution time.
+                 This also ensures that there will be time to write the file to the photo library when AVCam is backgrounded.
+                 To conclude this background execution, -[endBackgroundTask:] is called in
+                 -[captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:] after the recorded file has been saved.
+                 */
+                self.backgroundRecordingID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
+            }
+            
+            
+            // Update the orientation on the movie file output video connection before starting recording.
+            AVCaptureConnection *movieFileOutputConnection = [self.movieFileOutput connectionWithMediaType:AVMediaTypeAudio];
+            
+            movieFileOutputConnection.videoOrientation = videoPreviewLayerVideoOrientation;
+            
+            // Start recording to a temporary file.
+            NSString *outputFileName = [NSUUID UUID].UUIDString;
+            NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
+            [self.movieFileOutput startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
+        }
+        else {
+            [self.movieFileOutput stopRecording];
+        }
+    } );
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections

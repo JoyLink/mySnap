@@ -35,8 +35,10 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Need camera</string>
+	<string>Allow Camera Usage to better serve you.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Need microphone</string>
+	<string>Allow Microphone Usage to better serve you.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow Photo Library Usage to better serve you.</string>
 </dict>
 </plist>
