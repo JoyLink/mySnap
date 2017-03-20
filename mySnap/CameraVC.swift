@@ -8,11 +8,17 @@
 
 import UIKit
 
+
 class CameraVC: AVCamCameraViewController {
 
+    @IBOutlet weak var previewView: AVCamPreviewView!
     override func viewDidLoad() {
+        
+        self._previewView = previewView
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
 

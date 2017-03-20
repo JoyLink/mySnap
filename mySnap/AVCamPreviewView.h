@@ -8,6 +8,8 @@
 
 @import UIKit;
 
+@class AVCaptureVideoPreviewLayer;
+
 @class AVCaptureSession;
 
 @interface AVCamPreviewView : UIView
