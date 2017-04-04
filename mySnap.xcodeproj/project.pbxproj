@@ -16,6 +16,8 @@
 		702733421E80689200800DF9 /* AVCamCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702733401E80689200800DF9 /* AVCamCameraViewController.m */; };
 		7027334A1E8069B000800DF9 /* AVCamAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 702733471E8069B000800DF9 /* AVCamAppDelegate.m */; };
 		7027334B1E8069B000800DF9 /* AVCamPhotoCaptureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 702733491E8069B000800DF9 /* AVCamPhotoCaptureDelegate.m */; };
+		70A3CA071E937C5000B4D22B /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A3CA061E937C5000B4D22B /* RoundTextField.swift */; };
+		70A3CA091E937E2600B4D22B /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70A3CA081E937E2600B4D22B /* RoundButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		702733471E8069B000800DF9 /* AVCamAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamAppDelegate.m; sourceTree = "<group>"; };
 		702733481E8069B000800DF9 /* AVCamPhotoCaptureDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamPhotoCaptureDelegate.h; sourceTree = "<group>"; };
 		702733491E8069B000800DF9 /* AVCamPhotoCaptureDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPhotoCaptureDelegate.m; sourceTree = "<group>"; };
+		70A3CA061E937C5000B4D22B /* RoundTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
+		70A3CA081E937E2600B4D22B /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,8 @@
 			children = (
 				7027333D1E80689200800DF9 /* AVCamPreviewView.h */,
 				7027333E1E80689200800DF9 /* AVCamPreviewView.m */,
+				70A3CA061E937C5000B4D22B /* RoundTextField.swift */,
+				70A3CA081E937E2600B4D22B /* RoundButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -184,9 +190,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70A3CA091E937E2600B4D22B /* RoundButton.swift in Sources */,
 				7027332D1E80651E00800DF9 /* CameraVC.swift in Sources */,
 				7027332B1E80651E00800DF9 /* AppDelegate.swift in Sources */,
 				702733421E80689200800DF9 /* AVCamCameraViewController.m in Sources */,
+				70A3CA071E937C5000B4D22B /* RoundTextField.swift in Sources */,
 				702733411E80689200800DF9 /* AVCamPreviewView.m in Sources */,
 				7027334A1E8069B000800DF9 /* AVCamAppDelegate.m in Sources */,
 				7027334B1E8069B000800DF9 /* AVCamPhotoCaptureDelegate.m in Sources */,
@@ -255,7 +263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -298,7 +306,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -313,7 +321,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5GKJXKA9NC;
 				INFOPLIST_FILE = mySnap/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.mySnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -330,7 +338,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5GKJXKA9NC;
 				INFOPLIST_FILE = mySnap/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.mySnap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
