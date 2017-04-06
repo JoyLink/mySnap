@@ -21,6 +21,10 @@
 		70FB97691E95EB2D000D8A2C /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB97681E95EB2D000D8A2C /* LoginVC.swift */; };
 		70FB976C1E95ED9A000D8A2C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB976B1E95ED9A000D8A2C /* AuthService.swift */; };
 		70FB976E1E95EF56000D8A2C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70FB976D1E95EF56000D8A2C /* GoogleService-Info.plist */; };
+		70FB97701E96DF9B000D8A2C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB976F1E96DF9B000D8A2C /* DataService.swift */; };
+		70FB97721E96E5D4000D8A2C /* UserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB97711E96E5D4000D8A2C /* UserVC.swift */; };
+		70FB97741E96E7BA000D8A2C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB97731E96E7BA000D8A2C /* UserCell.swift */; };
+		70FB97771E96EACB000D8A2C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FB97761E96EACB000D8A2C /* User.swift */; };
 		9A09F7197AF3A79B0E3A35F6 /* Pods_mySnap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951A5E17D3F49DC32369099A /* Pods_mySnap.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +52,10 @@
 		70FB97681E95EB2D000D8A2C /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		70FB976B1E95ED9A000D8A2C /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		70FB976D1E95EF56000D8A2C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		70FB976F1E96DF9B000D8A2C /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		70FB97711E96E5D4000D8A2C /* UserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
+		70FB97731E96E7BA000D8A2C /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		70FB97761E96EACB000D8A2C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		951A5E17D3F49DC32369099A /* Pods_mySnap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mySnap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -101,6 +109,7 @@
 		702733291E80651E00800DF9 /* mySnap */ = {
 			isa = PBXGroup;
 			children = (
+				70FB97751E96EAC2000D8A2C /* Model */,
 				70FB976D1E95EF56000D8A2C /* GoogleService-Info.plist */,
 				70FB976A1E95ED79000D8A2C /* Services */,
 				702733451E80698E00800DF9 /* Delegate */,
@@ -123,6 +132,7 @@
 				7027333E1E80689200800DF9 /* AVCamPreviewView.m */,
 				70A3CA061E937C5000B4D22B /* RoundTextField.swift */,
 				70A3CA081E937E2600B4D22B /* RoundButton.swift */,
+				70FB97731E96E7BA000D8A2C /* UserCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -134,6 +144,7 @@
 				7027333F1E80689200800DF9 /* AVCamCameraViewController.h */,
 				702733401E80689200800DF9 /* AVCamCameraViewController.m */,
 				70FB97681E95EB2D000D8A2C /* LoginVC.swift */,
+				70FB97711E96E5D4000D8A2C /* UserVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -153,8 +164,17 @@
 			isa = PBXGroup;
 			children = (
 				70FB976B1E95ED9A000D8A2C /* AuthService.swift */,
+				70FB976F1E96DF9B000D8A2C /* DataService.swift */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		70FB97751E96EAC2000D8A2C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				70FB97761E96EACB000D8A2C /* User.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,11 +308,15 @@
 				7027332B1E80651E00800DF9 /* AppDelegate.swift in Sources */,
 				702733421E80689200800DF9 /* AVCamCameraViewController.m in Sources */,
 				70A3CA071E937C5000B4D22B /* RoundTextField.swift in Sources */,
+				70FB97701E96DF9B000D8A2C /* DataService.swift in Sources */,
+				70FB97771E96EACB000D8A2C /* User.swift in Sources */,
 				70FB97691E95EB2D000D8A2C /* LoginVC.swift in Sources */,
+				70FB97721E96E5D4000D8A2C /* UserVC.swift in Sources */,
 				702733411E80689200800DF9 /* AVCamPreviewView.m in Sources */,
 				70FB976C1E95ED9A000D8A2C /* AuthService.swift in Sources */,
 				7027334A1E8069B000800DF9 /* AVCamAppDelegate.m in Sources */,
 				7027334B1E8069B000800DF9 /* AVCamPhotoCaptureDelegate.m in Sources */,
+				70FB97741E96E7BA000D8A2C /* UserCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
