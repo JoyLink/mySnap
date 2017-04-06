@@ -62,6 +62,7 @@
                     </view>
                     <connections>
                         <outlet property="previewView" destination="h0G-mF-ouu" id="8w7-h4-Zpf"/>
+                        <segue destination="BQ3-cH-e2b" kind="show" identifier="LoginVC" id="4ic-dI-ZpW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

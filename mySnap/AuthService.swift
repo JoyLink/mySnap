@@ -34,9 +34,9 @@ class AuthService {
                                 if user?.uid != nil {
                                     FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
                                         if error != nil {
-                                            //
+                                            self.handleFirebaseError(error: error as! NSError, onComplete: onComplete!)
                                         } else {
-                                            
+                                            onComplete!(nil, user)
                                         }
                                     })
                                 }
@@ -44,10 +44,10 @@ class AuthService {
                         })
                     }
                 } else {
-                    
+                    self.handleFirebaseError(error: error as! NSError, onComplete: onComplete!)
                 }
             } else {
-                
+                onComplete?( nil, user)
             }
             
         })
