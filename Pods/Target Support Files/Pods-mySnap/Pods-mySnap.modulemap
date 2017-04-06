@@ -1,0 +1,6 @@
+framework module Pods_mySnap {
+  umbrella header "Pods-mySnap-umbrella.h"
+
+  export *
+  module * { export * }
+}
