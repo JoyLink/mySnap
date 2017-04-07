@@ -16,7 +16,7 @@ class UserCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        setCheckmark(selectd: false)
     }
 
     func updateUI(user: User) {

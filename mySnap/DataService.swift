@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseStorage
 
 class DataService {
     private static let _instance = DataService()
@@ -22,7 +23,20 @@ class DataService {
     
     
     var userRef: FIRDatabaseReference {
-        return mainRef.child("users")
+        return mainRef.child("Users")
+    }
+    
+    
+    var mainStorageRef: FIRStorageReference {
+        return FIRStorage.storage().reference(forURL: "gs://mysnap-7b9be.appspot.com")
+    }
+    
+    var imagesStorageRef: FIRStorageReference {
+        return mainStorageRef.child("images")
+    }
+    
+    var videoStorageRef: FIRStorageReference {
+        return mainStorageRef.child("videos")
     }
     
     

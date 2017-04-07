@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 
 
 class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -17,6 +18,29 @@ class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
     private var users = [User]()
     private var selectedUsers = Dictionary<String, User>()
     
+    
+    private var _snapData: Data?
+    private var _videoURL: URL?
+    
+    
+    var snapData: Data? {
+        set {
+            _snapData = newValue
+        } get {
+            return _snapData
+        }
+    }
+    
+    
+    var videoURL: URL? {
+        set {
+            _videoURL = newValue
+        } get {
+            return _videoURL
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +48,8 @@ class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
         tableView.dataSource = self
         tableView.allowsMultipleSelection = true
         
+        
+        navigationItem.rightBarButtonItem?.isEnabled = false
         
         DataService.instance.userRef.observeSingleEvent(of: .value) { (snapshot: FIRDataSnapshot) in
             
@@ -41,9 +67,10 @@ class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
                         }
                     }
                 }
+                self.tableView.reloadData()
             }
             
-            self.tableView.reloadData()
+            
             
         }
         // Do any additional setup after loading the view.
@@ -65,6 +92,7 @@ class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationItem.rightBarButtonItem?.isEnabled = true
         let cell = tableView.cellForRow(at: indexPath) as! UserCell
         cell.setCheckmark(selectd: true)
         let user = users[indexPath.row]
@@ -78,8 +106,40 @@ class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
         let user = users[indexPath.row]
         selectedUsers[user.uid] = nil
         
+        
+        if selectedUsers.count <= 0 {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        
     }
     
+    @IBAction func sendPRPressed(_ sender: Any) {
+        
+        
+        if let url = _videoURL {
+            let videoName = "\(NSUUID().uuidString)\(url)"
+            let ref = DataService.instance.videoStorageRef.child(videoName)
+            
+            let tast = ref.putFile(url, metadata: nil, completion: { (meta, error) in
+                if error != nil {
+                    print("Error uploading video: \(error?.localizedDescription)")
+                } else {
+                    let downloadURL = meta?.downloadURL()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+        } else if let snapData = _snapData {
+            let ref = DataService.instance.imagesStorageRef.child("\(NSUUID().uuidString).jpg")
+            _ = ref.put(snapData, metadata: nil, completion: { (meta, error) in
+                if error != nil {
+                    print ("Error uploading snap: \(error?.localizedDescription)")
+                } else {
+                    let downloadURL = meta?.downloadURL()
+                    self.dismiss(animated: true, completion: nil)
+                }
+            })
+        }
+    }
     
     
 

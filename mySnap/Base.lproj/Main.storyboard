@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="g0k-nd-0Cw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -63,11 +63,12 @@
                     <connections>
                         <outlet property="previewView" destination="h0G-mF-ouu" id="8w7-h4-Zpf"/>
                         <segue destination="BQ3-cH-e2b" kind="show" identifier="LoginVC" id="4ic-dI-ZpW"/>
+                        <segue destination="g0k-nd-0Cw" kind="show" identifier="UserVC" id="cSN-ia-Rb8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
+            <point key="canvasLocation" x="-242" y="38"/>
         </scene>
         <!--UserVC-->
         <scene sceneID="wTG-UI-Ik5">
@@ -82,10 +83,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mAg-4o-8vW">
-                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <rect key="frame" x="0.0" y="108" width="320" height="338"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" id="uXq-fR-hCq" customClass="UseCell" customModule="mySnap" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" id="uXq-fR-hCq" customClass="UserCell" customModule="mySnap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uXq-fR-hCq" id="9FP-wl-mVP">
@@ -115,23 +116,41 @@
                                 </prototypes>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="o2w-Wg-dbW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="rZr-lc-Apo"/>
                                 </constraints>
                                 <color key="barTintColor" red="0.76078431369999999" green="0.95294117649999999" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4H5-we-og1">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="nUL-IM-1wc"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Send a Pull request" id="w3m-bU-OP6">
+                                        <barButtonItem key="rightBarButtonItem" image="send_snap" id="FAx-rj-zaM">
+                                            <connections>
+                                                <action selector="sendPRPressed:" destination="g0k-nd-0Cw" id="97r-QQ-iR3"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="o2w-Wg-dbW" secondAttribute="trailing" id="8dh-YM-dxG"/>
-                            <constraint firstItem="mAg-4o-8vW" firstAttribute="top" secondItem="PM0-kk-EPR" secondAttribute="bottom" constant="24" id="JDY-bB-qjD"/>
+                            <constraint firstItem="mAg-4o-8vW" firstAttribute="top" secondItem="PM0-kk-EPR" secondAttribute="bottom" constant="88" id="JDY-bB-qjD"/>
+                            <constraint firstItem="4H5-we-og1" firstAttribute="top" secondItem="i6H-Ya-Mgc" secondAttribute="top" constant="20" id="Pg7-Ib-Wh3"/>
                             <constraint firstAttribute="trailing" secondItem="mAg-4o-8vW" secondAttribute="trailing" id="WEa-vg-B6A"/>
+                            <constraint firstItem="4H5-we-og1" firstAttribute="leading" secondItem="i6H-Ya-Mgc" secondAttribute="leading" id="Y6k-BG-zcF"/>
                             <constraint firstItem="mAg-4o-8vW" firstAttribute="leading" secondItem="i6H-Ya-Mgc" secondAttribute="leading" id="bkV-2E-nEC"/>
-                            <constraint firstItem="jza-fg-ZBs" firstAttribute="top" secondItem="mAg-4o-8vW" secondAttribute="bottom" id="gvz-8h-g3d"/>
-                            <constraint firstItem="o2w-Wg-dbW" firstAttribute="top" secondItem="i6H-Ya-Mgc" secondAttribute="top" id="lR9-Az-LdT"/>
+                            <constraint firstItem="jza-fg-ZBs" firstAttribute="top" secondItem="mAg-4o-8vW" secondAttribute="bottom" constant="34" id="gvz-8h-g3d"/>
+                            <constraint firstItem="o2w-Wg-dbW" firstAttribute="top" secondItem="i6H-Ya-Mgc" secondAttribute="top" constant="64" id="lR9-Az-LdT"/>
                             <constraint firstItem="o2w-Wg-dbW" firstAttribute="leading" secondItem="i6H-Ya-Mgc" secondAttribute="leading" id="pSY-DG-mfi"/>
+                            <constraint firstAttribute="trailing" secondItem="4H5-we-og1" secondAttribute="trailing" id="r6w-IO-hXD"/>
                         </constraints>
                     </view>
                     <connections>
@@ -299,5 +318,6 @@
         <image name="createsnap_btn" width="30" height="30"/>
         <image name="devslopes" width="1080" height="1349"/>
         <image name="devslopes-mountains-white" width="451" height="335"/>
+        <image name="send_snap" width="24" height="23"/>
     </resources>
 </document>

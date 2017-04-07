@@ -20,6 +20,8 @@ class CameraVC: AVCamCameraViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+//        try! FIRAuth.auth()!.signOut()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,6 +40,18 @@ class CameraVC: AVCamCameraViewController {
         changeCamera()
     }
 
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let userVC = segue.destination as? UserVC {
+            if let videoDict = sender as? Dictionary<String, URL> {
+                let url = videoDict["videoURL"]
+                userVC.videoURL = url
+            } else if let snapDict = sender as? Dictionary<String, Data> {
+                let snapData = snapDict["snapshotData"]
+                userVC.snapData = snapData
+            }
+        }
+    }
 
 }
 
