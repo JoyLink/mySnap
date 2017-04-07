@@ -12,9 +12,7 @@
 @protocol AAPLCameraVCDelegate <NSObject>
 
 -(void)videoRecordingComplete:(NSURL*)videoURL;
--(void)videoRecordingFailed;
--(void)snapshotTaken:(NSData*)snapshotData;
--(void)snapshotFailed;
+
 
 @end
 

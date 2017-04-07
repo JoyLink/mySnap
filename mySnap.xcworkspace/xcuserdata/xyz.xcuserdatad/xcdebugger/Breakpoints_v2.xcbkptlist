@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mySnap/UserVC.swift"
-            timestampString = "513226195.326222"
+            filePath = "mySnap/AVCamCameraViewController.m"
+            timestampString = "513229548.318814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "tableView(_:cellForRowAt:)"
+            startingLineNumber = "806"
+            endingLineNumber = "806"
+            landmarkName = "-captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mySnap/AVCamCameraViewController.m"
-            timestampString = "513229548.318814"
+            filePath = "mySnap/CameraVC.swift"
+            timestampString = "513230417.1602"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "806"
-            endingLineNumber = "806"
-            landmarkName = "-captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "videoRecordingComplete(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

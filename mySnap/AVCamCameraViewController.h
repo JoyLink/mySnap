@@ -8,16 +8,17 @@
 
 @import UIKit;
 @class AVCamPreviewView;
-@protocol  AAPLCameraVCDelegate;
+@protocol AAPLCameraVCDelegate;
 
 
 @interface AVCamCameraViewController : UIViewController
 @property (nonatomic, weak) AVCamPreviewView *_previewView;
+@property (retain) id <AAPLCameraVCDelegate> delegate;
 
 - (void)changeCamera;
 
 - (void)toggleMovieRecording;
 
-@property (retain) id <AAPLCameraVCDelegate> delegate;
+
 
 @end

@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAuth
 
 
 class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
@@ -120,24 +121,41 @@ class UserVC: UIViewController, UITableViewDataSource, UITableViewDelegate{
             let videoName = "\(NSUUID().uuidString)\(url)"
             let ref = DataService.instance.videoStorageRef.child(videoName)
             
-            let tast = ref.putFile(url, metadata: nil, completion: { (meta, error) in
-                if error != nil {
-                    print("Error uploading video: \(error?.localizedDescription)")
+            _ = ref.putFile(url, metadata: nil, completion: { (meta:FIRStorageMetadata?, err:Error?) in
+                
+                if err != nil {
+                    print("Error uploading video: \(err?.localizedDescription)")
                 } else {
-                    let downloadURL = meta?.downloadURL()
-                    self.dismiss(animated: true, completion: nil)
+                    let downloadURL = meta!.downloadURL()
+                    DataService.instance.sendMediaPullRequest(senderUID: FIRAuth.auth()!.currentUser!.uid, sendingTo: self.selectedUsers, mediaURL: downloadURL!, textSnippet: "Coding today was LEGIT!")
+                    print("Download URL: \(downloadURL)")
+                    //save this somewhere
+                    
                 }
+                
             })
-        } else if let snapData = _snapData {
+            self.dismiss(animated: true, completion: nil)
+        } else if let snap = _snapData {
             let ref = DataService.instance.imagesStorageRef.child("\(NSUUID().uuidString).jpg")
-            _ = ref.put(snapData, metadata: nil, completion: { (meta, error) in
-                if error != nil {
-                    print ("Error uploading snap: \(error?.localizedDescription)")
+            
+            _ = ref.put(snap, metadata: nil, completion: { (meta:FIRStorageMetadata?, err:Error?) in
+                if err != nil {
+                    print("Error uploading snapshot: \(err?.localizedDescription)")
                 } else {
-                    let downloadURL = meta?.downloadURL()
+                    let downloadURL = meta!.downloadURL()
                     self.dismiss(animated: true, completion: nil)
                 }
             })
+            //            _ = ref.put(snap, metadata: nil, completion: { (meta:FIRStorageMetadata?, err:NSError?) in
+            //
+            //                if err != nil {
+            //                    print("Error uploading snapshot: \(err?.localizedDescription)")
+            //                } else {
+            //                    let downloadURL = meta!.downloadURL()
+            //                    self.dismiss(animated: true, completion: nil)
+            //                }
+            //            })
+            self.dismiss(animated: true, completion: nil)
         }
     }
     

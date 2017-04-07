@@ -18,6 +18,7 @@ class CameraVC: AVCamCameraViewController, AAPLCameraVCDelegate {
         
         self._previewView = previewView
         
+        delegate = self
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
@@ -56,20 +57,14 @@ class CameraVC: AVCamCameraViewController, AAPLCameraVCDelegate {
     
 
     func videoRecordingComplete(_ videoURL: URL!) {
-        performSegue(withIdentifier: "UsersVC", sender: ["videoURL":videoURL])
+        performSegue(withIdentifier: "UserVC", sender: ["videoURL":videoURL])
+    }
+    
+    
+    func snapshotTaken(_ snapshotData: Data!) {
+        performSegue(withIdentifier: "UserVC", sender: ["snapshotData":snapshotData])
     }
     
 
-    func snapshotFailed() {
-        
-    }
-    
-    func snapshotTaken(_ snapshotData: Data!) {
-        performSegue(withIdentifier: "UsersVC", sender: ["snapshotData":snapshotData])
-    }
-    
-    func videoRecordingFailed() {
-        
-    }
 }
 
