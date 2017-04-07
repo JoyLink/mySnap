@@ -9,7 +9,8 @@
 import UIKit
 import FirebaseAuth
 
-class CameraVC: AVCamCameraViewController {
+
+class CameraVC: AVCamCameraViewController, AAPLCameraVCDelegate {
 
     @IBOutlet weak var previewView: AVCamPreviewView!
     override func viewDidLoad() {
@@ -52,6 +53,23 @@ class CameraVC: AVCamCameraViewController {
             }
         }
     }
+    
 
+    func videoRecordingComplete(_ videoURL: URL!) {
+        performSegue(withIdentifier: "UsersVC", sender: ["videoURL":videoURL])
+    }
+    
+
+    func snapshotFailed() {
+        
+    }
+    
+    func snapshotTaken(_ snapshotData: Data!) {
+        performSegue(withIdentifier: "UsersVC", sender: ["snapshotData":snapshotData])
+    }
+    
+    func videoRecordingFailed() {
+        
+    }
 }
 

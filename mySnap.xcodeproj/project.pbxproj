@@ -56,6 +56,7 @@
 		70FB97711E96E5D4000D8A2C /* UserVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserVC.swift; sourceTree = "<group>"; };
 		70FB97731E96E7BA000D8A2C /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		70FB97761E96EACB000D8A2C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		70FB97791E973F9E000D8A2C /* AAPLCameraVCDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AAPLCameraVCDelegate.h; sourceTree = "<group>"; };
 		951A5E17D3F49DC32369099A /* Pods_mySnap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mySnap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -109,6 +110,7 @@
 		702733291E80651E00800DF9 /* mySnap */ = {
 			isa = PBXGroup;
 			children = (
+				70FB97781E973F74000D8A2C /* Protocols */,
 				70FB97751E96EAC2000D8A2C /* Model */,
 				70FB976D1E95EF56000D8A2C /* GoogleService-Info.plist */,
 				70FB976A1E95ED79000D8A2C /* Services */,
@@ -175,6 +177,14 @@
 				70FB97761E96EACB000D8A2C /* User.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		70FB97781E973F74000D8A2C /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				70FB97791E973F9E000D8A2C /* AAPLCameraVCDelegate.h */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
